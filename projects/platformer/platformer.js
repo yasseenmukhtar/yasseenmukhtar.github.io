@@ -80,7 +80,7 @@ $(function () {
     createCollectable("Kitty2", 500, 40,.2,.2)
     createCollectable("Kitty3", 750, 40,.2,.2)
     createCollectable("Kitty4", 1100,40,.2,.2)
-    
+    createCollectable("Kitty5", 250,40,.2,.2)
     
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
