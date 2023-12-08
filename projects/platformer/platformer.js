@@ -62,20 +62,26 @@ $(function () {
     // Create cannons
     // You must decide the wall you want the cannon on, the position on the wall, and the time between shots in milliseconds
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
+    createCannon("right", 730, 1000)
     createCannon("top", 600, 1000);
     createCannon("top", 200, 1000);
     createCannon("top", 1000, 1000);
     createCannon("top", 600, 1000);
      createCannon("bottom", 600, 1000);
-     createCannon("bottom", 300, 1000);  
+     createCannon("bottom", 200, 1000);  
+    
+     createPlatform(400,550,200,50);
+     createPlatform(100,650,200,50);
+     createPlatform(700,500,250,50);
+     createPlatform(1100,450,250,50);
+
+    
+     createCollectable("Kitty", 50, 40, .2, .2)
+    createCollectable("Kitty2", 500, 40,.2,.2)
+    createCollectable("Kitty3", 750, 40,.2,.2)
+    createCollectable("Kitty4", 1100,40,.2,.2)
     
     
-    
-    
-    createPlatform(400,550,200,50);
-    createPlatform(100,650,200,50);
-    createPlatform(700,500,250,50);
-    createPlatform(1100,450,250,50);
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
     /////////////////////////////////////////////////
