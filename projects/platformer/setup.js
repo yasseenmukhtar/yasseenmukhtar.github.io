@@ -102,4 +102,6 @@ var collectableList = {
   Kitty3: {image: "images/collectables/Kitty3.png"},
   Kitty4: { image: "images/collectables/Kitty4.png"},
   Kitty5: { image: "images/collectables/Kitty5.png"},
+  Kitty6: { image: "images/collectables/Kitty6.png"},
+  Kitty7: { image: "images/collectables/Kitty7.png"},
 };

@@ -67,20 +67,30 @@ $(function () {
     createCannon("top", 200, 1000);
     createCannon("top", 1000, 1000);
     createCannon("top", 600, 1000);
-     createCannon("bottom", 600, 1000);
-     createCannon("bottom", 200, 1000);  
+    createCannon("bottom", 600, 1000);
+    createCannon("bottom", 200, 1000);  
     
+     
+     
      createPlatform(400,550,200,50);
      createPlatform(100,650,200,50);
      createPlatform(700,500,250,50);
      createPlatform(1100,450,250,50);
+     createPlatform(845,360,250,50)
+     createPlatform(1150,360,50,50)
+     createPlatform(1250,315,50,50)
+     
 
-    
-     createCollectable("Kitty", 50, 40, .2, .2)
+
+    createCollectable("Kitty", 50, 40, .2, .2)
     createCollectable("Kitty2", 500, 40,.2,.2)
     createCollectable("Kitty3", 750, 40,.2,.2)
     createCollectable("Kitty4", 1100,40,.2,.2)
     createCollectable("Kitty5", 250,40,.2,.2)
+    createCollectable("Kitty6",850,60,.2,.2)
+    createCollectable("Kitty7",1250,300,.2,.2)
+     
+    
     
     /////////////////////////////////////////////////
     //////////ONLY CHANGE ABOVE THIS POINT///////////
