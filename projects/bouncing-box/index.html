@@ -5,6 +5,12 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
+		body  {
+  			background-image: url("img/cat.jpg");
+  			background-color: #cccccc;
+		}
+		
+		
 		.box {
 			width: 70px;
 			height: 70px;
@@ -20,6 +26,13 @@
 		.board{
 			height: 100vh;
 		}
+	
+		
+	
+	
+	
+	
+	
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
@@ -27,7 +40,7 @@
 <body class="board">
 	<!-- HTML for the box -->
 	<div class="box">?</div>
-
+	
 	<script>
 		(function(){
 			'use strict'
@@ -48,8 +61,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top",newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -67,10 +81,12 @@
 			// TODO 2 - Variable declarations 
 			// When you first create the Variable...
 			var positionX = 0;
-			var handleBoxClick = 0;
 			var points = 0;
-			
-			
+			var speed = 10;
+			var positionY = 150;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height();
+
 			
 			
 			/* 
@@ -80,10 +96,31 @@
 			*/
 			function update() {
 				/* Increase by 10 */
-				positionX = positionX + 10;
+				positionX = positionX + speed;
+				positionY = positionY + speedY;
+				moveBoxTo(positionX, positionY); 
 				
+				if(positionX > boardWidth){
+					speed = -speed;
+				}
+
+				if(positionX < 0){
+					speed = -speed;
+				}
+
 				
-				moveBoxTo(positionX); 
+
+				if (positionY > boardHeight){
+                speedY = speed * -1
+                } else if (positionY < 0){
+                speedY = speed * -1
+                }
+
+				
+
+			
+			
+			
 			
 			};
 
@@ -94,10 +131,36 @@
 			*/
 			function handleBoxClick() {
 				positionX = 0;
-				changeBoxText(1);
+				points = points + 1;
+				speed = speed + 3;
+				changeBoxText(points);
+				//Points should increase the points variable by 1
+				
+				if(speed > 0){
+					speed += 3;
+				} else if(speed < 0){
+					speed -= 3;
+				}
+			
+				if(speedY > 0){
+                    speedY += 3
+                }else if(speed < 0){
+                    speed -= 3
+                }
 
+			
+			
+			
+			
 			};
+
 		})();
+	
+	
+	
+	
+	
+	
 	</script>
 </body>
 </html>
