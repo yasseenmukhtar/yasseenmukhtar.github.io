@@ -26,9 +26,9 @@ var init = function (window) {
         // TODO 2 : Create a function that draws a circle 
         function drawCircle(){          //This function actually draws the circles
             // Code to draw a circle
-            circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);        //This draws the cicle in a random pos
-            physikz.addRandomVelocity(circle, canvas,10,10);    //this line of code makes the circles have a randon velocity
-            view.addChild(circle);
+            circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);        //Uses an existign draw function to draw a circle of random size, color and location within the canvas
+            physikz.addRandomVelocity(circle, canvas,10,10);    //Uses the physikz library to add a random velocity and direction to the circle.
+            view.addChild(circle);      //adds the circle as a child of view so that 
             circles.push(circle);
         }
 
@@ -36,9 +36,9 @@ var init = function (window) {
         
         
         
-        for (var i = 0; i < 100; i++) {    //In todo 3, I called some functions called drawCircle(); To make it less repetitive, I put a for loop for todo 7
+        for (var i = 0; i < 100; i++) {    //In todo 3, I called some functions called drawCircle(); To make it less repetitive, I put a for loop under todo 7
             // do something
-            drawCircle(); //Just one function call
+            drawCircle(); //This function call is inside a for loop, and it is being used to draw each circle in the array.
         }
 
 
@@ -69,7 +69,7 @@ var init = function (window) {
             for (var i = 0; i < circles.length; i++) {      //This for loop was created to iterate over the array cretaed on line 24
                 // code to repeat using i
                circles.length[i];       
-               physikz.updatePosition(circles[i])       //This line is used to update the position of all the circles, (i)
+               physikz.updatePosition(circles[i])       //This line is used to update the position of all the circles, it updates the circles position (i)
                game.checkCirclePosition(circles[i])     //This line just checks the circles position
             }
             
@@ -99,8 +99,8 @@ var init = function (window) {
             }
 
             if(circle.y > canvas.height){           //Created an if statement so that if the circles cross the bottom boarder, they will appear on the top 
-                circle.x = 0;               //This will reset the x pos to 0
-                circle.y = 0;               //This will reset the y pos to 0
+                circle.x = 0;               // when the circle goes off screen, this is where the circle will go back to being 0.
+                circle.y = 0;               //when the circle goes off screen, this is where the circle will go back to being 0.
             }
 
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
