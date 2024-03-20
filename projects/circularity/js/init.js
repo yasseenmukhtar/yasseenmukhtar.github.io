@@ -28,8 +28,8 @@ var init = function (window) {
             // Code to draw a circle
             circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);        //Uses an existign draw function to draw a circle of random size, color and location within the canvas
             physikz.addRandomVelocity(circle, canvas,10,10);    //Uses the physikz library to add a random velocity and direction to the circle.
-            view.addChild(circle);      //adds the circle as a child of view so that 
-            circles.push(circle);
+            view.addChild(circle);      //adds the circle as a child of view so that the circle appears on screen
+            circles.push(circle);  //saves the circle to an array of circles by pushing it to the end of the array
         }
 
         // TODO 3 / 7 : Call the drawCircle() function 
@@ -70,7 +70,7 @@ var init = function (window) {
                 // code to repeat using i
                circles.length[i];       
                physikz.updatePosition(circles[i])       //This line is used to update the position of all the circles, it updates the circles position (i)
-               game.checkCirclePosition(circles[i])     //This line just checks the circles position
+               game.checkCirclePosition(circles[i])     //This line just checks the circles position 
             }
             
         }
@@ -95,7 +95,7 @@ var init = function (window) {
 
             if(circle.y < 0){           //Created an if statement so that if the circles cross the top boarder, they will appear on the bottom 
                 circle.x = 0;          //This will reset the x pos to 0
-                circle.y = canvas.height;   //This will reset the y pos to canvas.height
+                circle.y = canvas.height;   //This will reset the y pos to canvas.height 
             }
 
             if(circle.y > canvas.height){           //Created an if statement so that if the circles cross the bottom boarder, they will appear on the top 
