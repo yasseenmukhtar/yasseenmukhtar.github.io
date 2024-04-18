@@ -9,7 +9,7 @@ var makeLevelData = function (window) {
     // behavior of our game
 
     // TODO 12: change the below data
-    var levelData = [
+    var levelData = [ //Variable called levelData
       {
         name: "Robot Romp",
         number: 1,
