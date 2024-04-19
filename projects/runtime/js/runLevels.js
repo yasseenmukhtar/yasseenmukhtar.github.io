@@ -267,9 +267,9 @@ var runLevels = function (window) {
       marker3.x = x; //Marker x pos. (not hard coded.)
       marker3.y = y; //Marker y pos. (not hard coded.)
       game.addGameItem(marker3);  //This funcion called "addGameItem" has a paramter called "marker2", and it adds the reward to the actual game.
-      marker2.velocityX = -2; //This line is where I set the marker's velocity. It's -2. 
+      marker3.velocityX = -2; //This line is where I set the marker's velocity. It's -2. 
       marker3.velocityX = -2;  //This funcion called "addGameItem" has a paramter called "marker2", and it adds the reward to the actual game.
-      marker2.velocityX = -2; //This line is where I set the marker's velocity. It's -2.
+      marker3.velocityX = -2; //This line is where I set the marker's velocity. It's -2.
     
       marker3.onPlayerCollision = function () {
         game.changeIntegrity(100);  //Increase game score by 100.
