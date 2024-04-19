@@ -29,8 +29,8 @@ var background = function (window) {
         // ANIMATION VARIABLES HERE //////////////////////////////////////
         //////////////////////////////////////////////////////////////////
         // TODO (several):
-            var tree;
-            var catTrees = [];
+            var tree; //was used for a tree
+            var catTrees = []; //new variable called "catTrees" used for cat tree images in project.
  
       
         // called at the start of game and whenever the page is resized
@@ -41,16 +41,16 @@ var background = function (window) {
             // TODO 1:
             // this currently fills the background with an obnoxious yellow;
             // you should modify both the height and color to suit your game
-            var backgroundFill = draw.bitmap("img/GalaxyBackground.png");
-            background.addChild(backgroundFill);
+            var backgroundFill = draw.bitmap("img/GalaxyBackground.png"); //Variable called "backgroundFill". It's used to draw the image I've chosen as a background.
+            background.addChild(backgroundFill); //Adds the child(the image) to backgroundFill.
             
-            var groundFill = draw.rect(canvasWidth, canvasHeight, 'gray');
+            var groundFill = draw.rect(canvasWidth, canvasHeight, 'gray'); //the actual ground that hallebot walks on.
             
-            groundFill.x = 4;
-            groundFill.y = groundY;
-            background.addChild(groundFill);
+            groundFill.x = 4; //Ground fill x(how much of the screen it covers by x pos, so left and right).
+            groundFill.y = groundY; //Ground fill x(how much of the screen it covers by y pos, so up and down).
+            background.addChild(groundFill); // Adds child(ground) to groundFill
             
-            // TODO 2: - Add a moon and starfield
+            // TODO 2: - Add a moon and starfield               //Lines 54-59 is a for loop used to create 100 stars(customizable and optional)
            /* for(var stars = 0; stars < 100; stars++){
                 var circle = draw.circle(3, "white", "yellow", 2);
                 circle.x = canvasWidth * Math.random();
@@ -59,30 +59,30 @@ var background = function (window) {
             } */
             
             
-            var moon = draw.bitmap("img/moon.png"); //varible called moon is given to a draw function that draws a moon image
-                moon.x = canvasWidth - 250;
+           /* var moon = draw.bitmap("img/moon.png"); Lines 62-67 is for adding a moon image and then scaling it to the right size. *NOT USED IN PROJECT*
+                moon.x = canvasWidth - 250; 
                 moon.y = groundY - 350;
                 moon.scaleX = 0.5;
                 moon.scaleY = 0.5;
-                background.addChild(moon);
+                background.addChild(moon); */
             
            
             
             // TODO 4: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 5; i++) {  //for loop to make 5 cat trees
                 
-                var newCatTree = draw.bitmap("img/NewCatTree.png");
-                newCatTree.x = 400 * i;
-                newCatTree.y = groundY - 270;
-                background.addChild(newCatTree);
-                newCatTree.scaleX = 0.2;
-                newCatTree.scaleY = 0.2;
-                catTrees.push(newCatTree);
+                var newCatTree = draw.bitmap("img/NewCatTree.png"); //variable called newCatTree that holds a draw.bitmap function to add the cat tree img.
+                newCatTree.x = 400 * i; //Placing the 5 cat trees
+                newCatTree.y = groundY - 270; //Scaling the cat tree
+                background.addChild(newCatTree); //Adding the image to the background.
+                newCatTree.scaleX = 0.2; //Scaling the cat tree
+                newCatTree.scaleY = 0.2; //Scaling the cat tree
+                catTrees.push(newCatTree); //pushing the cat trees to the loop
               }
             
             // TODO 3: Part 1 - Add a tree
             
-            /*tree = draw.bitmap("img/tree.png");
+            /*tree = draw.bitmap("img/tree.png"); //Lines 85-90 is just to scale the tree size and some other stuff.
             tree.x = canvasWidth;
             tree.y = groundY - 225;
             background.addChild(tree);*/
@@ -108,11 +108,11 @@ var background = function (window) {
             } */
             
             // TODO 4: Part 2 - Parallax
-            for (var i = 0; i < catTrees.length; i++) {
+            for (var i = 0; i < catTrees.length; i++) { //Lines 111-120 is a for loop to make the cat trees come to the player(players doesn't actually move forward)
                 var catTree = catTrees[i];
               catTree.x = catTree.x - 1;
                 // code to do something with each element
-              if(catTree.x < -200){
+              if(catTree.x < -200){ //If statement declaring that if catTree.X is less than -200 put catTree.x at canvasWidth
                 catTree.x = canvasWidth;
               }
             }
