@@ -1,0 +1,29 @@
+
+body {
+  background-color: darkgreen;
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+}
+
+#walker {
+  background-color: teal;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 5cm;
+}
+  #walker2 {
+    background-color: rgb(0, 128, 21);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 5cm;
+    left: 100px; 
+    top: 100px;  
+}
