@@ -33,23 +33,12 @@ function runProgram() {
     width: $("#walker").width(),
     height: $("#walker").height(),
   };
-  var walker2 = Walker("#walker", 0,0, 0, 0, WALKER_WIDTH, WALKER_HEIGHT);
+  var walker = Walker("#walker", 0,0, 0, 0, WALKER_WIDTH, WALKER_HEIGHT);
   var walker2 = Walker("#walker2", BOARD_WIDTH - WALKER_WIDTH, BOARD_HEIGHT - WALKER_HEIGHT, 0, 0, WALKER_WIDTH, WALKER_HEIGHT );
   
  
 
-  function Walker(id, xPos, yPos, speedX, speedY, width, height){
-    let obj = {
-      id: id,
-      xPos: xPos,
-      yPos: yPos,
-      speedX: speedX,
-      speedY: speedY,
-      width: width,
-      height: height
-    };
-    return obj;
-  }
+  
   
   
   
@@ -68,8 +57,10 @@ function runProgram() {
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    repositionGameItem();
-    redrawGameItem();
+    repositionGameItem(walker);
+    repositionGameItem(walker2);
+    redrawGameItem(walker);
+    redrawGameItem(walker2);
     wallCollision();
     handleCollision();
   }
@@ -143,20 +134,16 @@ function runProgram() {
     }
   }
 
-  function repositionGameItem() {
-    walker.xPos += walker.speedX;
-    walker.yPos += walker.speedY;
-
-    walker2.xPos += walker2.speedX;
-    walker2.yPos += walker2.speedY;
+  function repositionGameItem(obj) {
+    obj.xPos += obj.speedX;
+    obj.yPos += obj.speedY;
   }
 
-  function redrawGameItem() {
-    $("#walker").css("left", walker.xPos);
-    $("#walker").css("top", walker.yPos);
+  function redrawGameItem(obj) {
+    $(obj.id).css("left", obj.xPos);
+    $(obj.id).css("top", obj.yPos);
 
-    $("#walker2").css("left", walker2.xPos);
-    $("#walker2").css("top", walker2.yPos);
+    
   }
 
   function doCollide(obj1, obj2) {
@@ -206,4 +193,24 @@ function runProgram() {
     // turn off event handlers
     $(document).off();
   }
+
+  function Walker(id, xPos, yPos, speedX, speedY, width, height){
+    let obj = {
+      id: id,
+      xPos: xPos,
+      yPos: yPos,
+      speedX: speedX,
+      speedY: speedY,
+      width: width,
+      height: height
+    };
+    return obj;
+  }
+
+
+
+
+
+
+
 }
