@@ -42,8 +42,8 @@ function runProgram(){
   var ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1));
 
   // one-time setup
-  let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-  $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
+  let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL); 
+  $(document).on('keydown', handleKeyDown);
   $(document).on('keyup', handleKeyUp);
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -51,26 +51,28 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
 
   function newFrame() {
-    moveObject(paddleLeft);   // Move the left paddle
-    moveObject(ball);         // Move the ball
-    moveObject(paddleRight);  // Move the right paddle
+    moveObject(paddleLeft);   
+    moveObject(ball);         
+    moveObject(paddleRight); 
 
-    drawGameItem(paddleLeft);   // Draw the left paddle
-    drawGameItem(ball);         // Draw the ball
-    drawGameItem(paddleRight);  // Draw the right paddle
-
-    wallCollision(ball);
-
-    // Check for ball collision with left paddle
+    drawGameItem(paddleLeft); 
+    drawGameItem(ball);
+    drawGameItem(paddleRight);
+    paddleBoundaries(paddleLeft);
+    paddleBoundaries(paddleRight);
+    ballCollisionTB();
+    ballCollisionLR();
+    
     if (doCollide(ball, paddleLeft)) {
-      ball.speedX = -ball.speedX;  // Bounce ball off left paddle
+      ball.speedX = -ball.speedX;
     }
 
-    // Check for ball collision with right paddle
+    
     if (doCollide(ball, paddleRight)) {
-      ball.speedX = -ball.speedX;  // Bounce ball off right paddle
+      ball.speedX = -ball.speedX;
     }
   }
+//read instructions for score
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -79,8 +81,6 @@ function runProgram(){
   function moveObject(obj) {
     obj.x += obj.speedX;
     obj.y += obj.speedY;
-    $(obj.id).css("left", obj.x);
-    $(obj.id).css("top", obj.y);
   }
 
   function drawGameItem(obj){
@@ -88,30 +88,38 @@ function runProgram(){
     $(obj.id).css("top", obj.y);
   }
 
-  function updateGameItem(obj){
-    obj.x += obj.speedX;
-    obj.y += obj.speedY;
+
+  function paddleBoundaries(obj) {
+    if (obj.y < 0 || obj.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
+      obj.y -= obj.speedY;
+    }
+    
+    
+  }
+function ballCollisionTB(){
+  if (ball.y < 0) {
+    ball.speedY = -ball.speedY;  
+    
   }
 
-  function wallCollision() {
-    if (paddleLeft.y < 0 || paddleLeft.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
-      paddleLeft.y -= paddleLeft.speedY;
-    }
-    if (paddleRight.y < 0 || paddleRight.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
-      paddleRight.y -= paddleRight.speedY;
-    }
-    if (ball.y <= 0) {
-      ball.speedY = -ball.speedY;  
-      ball.y = 0;  
-    }
-
-    if (ball.y + BALL_HEIGHT >= BOARD_HEIGHT) {
-      ball.speedY = -ball.speedY;  
-      ball.y = BOARD_HEIGHT - BALL_HEIGHT; 
-    }
+  if (ball.y + BALL_HEIGHT > BOARD_HEIGHT) {
+    ball.speedY = -ball.speedY;  
   }
-
-  // Function to detect collision between two objects (ball and paddle)
+}
+function ballCollisionLR(){
+  if(ball.x > BOARD_WIDTH){
+    reset();
+    //reset pos
+    //add a score to whoever made the point
+  
+  }
+}
+function reset(){
+   paddleLeft = createGameItem("#paddleLeft", 0, 0);
+   paddleRight = createGameItem("#paddleRight", 0, 0);
+   ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1));
+}
+  // Function to detect collision between two objects (ball and paddle) Used a function with non-hardcoded items. This gets referenced in newFrame
   function doCollide(obj1, obj2) {
     if (
       obj1.x + obj1.w > obj2.x && 
