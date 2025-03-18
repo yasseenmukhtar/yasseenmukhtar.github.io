@@ -107,19 +107,25 @@ function ballCollisionTB(){
   }
 }
 function ballCollisionLR(){
-  if(ball.x > BOARD_WIDTH){
+  if(ball.x + BALL_WIDTH > BOARD_WIDTH){
     reset();
     //reset pos
     //add a score to whoever made the point
-  
+  }
+  if(ball.x + BALL_WIDTH < 0){
+    reset();
+    //reset pos
+    //add a score to whoever made the point
   }
 }
 function reset(){
    paddleLeft = createGameItem("#paddleLeft", 0, 0);
    paddleRight = createGameItem("#paddleRight", 0, 0);
    ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1));
-}
-  // Function to detect collision between two objects (ball and paddle) Used a function with non-hardcoded items. This gets referenced in newFrame
+  ball.x = BOARD_WIDTH /2;
+  ball.y = BOARD_HEIGHT /2;
+  }
+  // I a function with non-hardcoded items. This gets referenced in newFrame
   function doCollide(obj1, obj2) {
     if (
       obj1.x + obj1.w > obj2.x && 
