@@ -1,7 +1,7 @@
 /* global $, sessionStorage */
 
 $(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
-  
+
 function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// SETUP /////////////////////////////////////////////
@@ -15,18 +15,15 @@ function runProgram(){
   const PADDLE_HEIGHT = $('#paddleLeft').height();
   const BALL_WIDTH = $('#ball').width();
   const BALL_HEIGHT = $('#ball').height();
+
   // Game Item Objects
   const KEY = {
     "W": 87,
     "S": 83,
-  
     "UP": 38,
     "DOWN": 40
   }
-  
-  
-  
-  
+
   function createGameItem(id, speedX, speedY){
     var obj = {
       id: id,
@@ -34,42 +31,103 @@ function runProgram(){
       y: parseFloat($(id).css("top")),
       speedX: speedX,
       speedY: speedY,
-      w: $(id).width,
-      h: $(id).height,
+      w: $(id).width(),
+      h: $(id).height(),
     }
     return obj;
   }
 
   var paddleLeft = createGameItem("#paddleLeft", 0, 0);
   var paddleRight = createGameItem("#paddleRight", 0, 0);
-  var ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1) )
+  var ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1));
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   $(document).on('keyup', handleKeyUp);
+
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
-  /* 
-  On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
-  by calling this function and executing the code inside.
-  */
   function newFrame() {
-    drawGameItem(paddleLeft)
-    drawGameItem(ball)
-    updateGameItem(paddleLeft)
-    updateGameItem(ball)
-    drawGameItem(paddleRight)
-    updateGameItem(paddleRight)
-    wallCollision();
-    scoreDetector();
+    moveObject(paddleLeft);   // Move the left paddle
+    moveObject(ball);         // Move the ball
+    moveObject(paddleRight);  // Move the right paddle
+
+    drawGameItem(paddleLeft);   // Draw the left paddle
+    drawGameItem(ball);         // Draw the ball
+    drawGameItem(paddleRight);  // Draw the right paddle
+
+    wallCollision(ball);
+
+    // Check for ball collision with left paddle
+    if (doCollide(ball, paddleLeft)) {
+      ball.speedX = -ball.speedX;  // Bounce ball off left paddle
+    }
+
+    // Check for ball collision with right paddle
+    if (doCollide(ball, paddleRight)) {
+      ball.speedX = -ball.speedX;  // Bounce ball off right paddle
+    }
   }
-  
-  /* 
-  Called in response to events.
-  */
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
+  function moveObject(obj) {
+    obj.x += obj.speedX;
+    obj.y += obj.speedY;
+    $(obj.id).css("left", obj.x);
+    $(obj.id).css("top", obj.y);
+  }
+
+  function drawGameItem(obj){
+    $(obj.id).css("left", obj.x);
+    $(obj.id).css("top", obj.y);
+  }
+
+  function updateGameItem(obj){
+    obj.x += obj.speedX;
+    obj.y += obj.speedY;
+  }
+
+  function wallCollision() {
+    if (paddleLeft.y < 0 || paddleLeft.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
+      paddleLeft.y -= paddleLeft.speedY;
+    }
+    if (paddleRight.y < 0 || paddleRight.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
+      paddleRight.y -= paddleRight.speedY;
+    }
+    if (ball.y <= 0) {
+      ball.speedY = -ball.speedY;  
+      ball.y = 0;  
+    }
+
+    if (ball.y + BALL_HEIGHT >= BOARD_HEIGHT) {
+      ball.speedY = -ball.speedY;  
+      ball.y = BOARD_HEIGHT - BALL_HEIGHT; 
+    }
+  }
+
+  // Function to detect collision between two objects (ball and paddle)
+  function doCollide(obj1, obj2) {
+    if (
+      obj1.x + obj1.w > obj2.x && 
+      obj1.x < obj2.x + obj2.w &&
+      obj1.y + obj1.h > obj2.y &&
+      obj1.y < obj2.y + obj2.h
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// KEY HANDLING ////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+
   function handleKeyDown(event) {
     if(event.which === KEY.W){
       paddleLeft.speedY = -5;
@@ -98,45 +156,11 @@ function runProgram(){
       paddleRight.speedY = 0;
     }
   }
-//check boundaries of opaddles
-//handle what happens when ball touches the walls
-//what happens whwn the ball touches the paddles
-//what happens when someone wins
-//function that handles the points
-//handle reseting the game
-//determine if 
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
-  //Movement Helper Info
-
-
-
-
-
-
-
-function drawGameItem(obj){
-    $(obj.id).css("left", obj.x);
-    $(obj.id).css("top", obj.y);
-  }
   
-  function updateGameItem(obj){
-    obj.x += obj.speedX;
-    obj.y += obj.speedY;
-  }
-
-  function wallCollision() {
-    if (paddleLeft.y < 0 || paddleLeft.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
-      paddleLeft.y -= paddleLeft.speedY;
-    }
-    if (paddleRight.y < 0 || paddleRight.y > BOARD_HEIGHT - PADDLE_HEIGHT) {
-      paddleRight.y -= paddleRight.speedY;
-    }
-    if (ball.y < 0 || ball.y > BOARD_HEIGHT - BALL_HEIGHT) {
-      ball.y -= ball.speedY;
-    }
-  }
+  
+  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////// END GAME FUNCTION ////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
 
   function endGame() {
     // stop the interval timer
@@ -145,5 +169,4 @@ function drawGameItem(obj){
     // turn off event handlers
     $(document).off();
   }
-  
 }

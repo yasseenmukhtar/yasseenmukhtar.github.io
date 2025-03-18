@@ -14,8 +14,8 @@ body {
 .paddle{
   background-color: rgb(255, 255, 255);
   width: 25px;
-  height: 110px;
-  border-radius: 15px;
+  height: 100px;
+  
   position: absolute;
 }
 #paddleRight {
@@ -36,4 +36,29 @@ body {
   border-radius: 50px;
   left: 435px;
   top: 220px;
+}
+
+#centerLine {
+  position: absolute;
+  left: 50%; 
+  top: 0;
+  height: 100%; 
+  width: 2px; 
+  border-left: 2px dashed white; 
+  transform: translateX(-50%); /*asked chat gpt how to directly center the line */
+}
+
+#scoreboard {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  font-size: 24px;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  transform: translateX(-50%);
+}
+
+#score {
+  font-size: 30px;
 }
