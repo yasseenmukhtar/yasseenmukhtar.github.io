@@ -1,13 +1,14 @@
 
 body {
-  background-color: darkgreen;
+  background-color: royalblue;
+  background-size:cover;
 }
 
 #board {
   width: 900px;
   height: 500px;
   border: 1px solid white;
-  background-color: black;
+  background-color: royalblue;
   position: relative;
 }
 
@@ -48,10 +49,8 @@ body {
   transform: translateX(-50%); /*asked chat gpt how to directly center the line */
 }
 
-#scoreboard {
+.scores {
   position: absolute;
-  top: 10px;
-  left: 50%;
   font-size: 24px;
   color: white;
   font-family: Arial, sans-serif;
@@ -59,6 +58,24 @@ body {
   transform: translateX(-50%);
 }
 
-#score {
-  font-size: 30px;
+#scoreLeft{
+  top: 10px;
+  left: 24.5%;
+}
+
+#scoreRight{
+  top: 10px;
+  right:6.5%;
+}
+
+#playAgainButton{
+  text-align: center;
+  background-color: rgb(9, 48, 166);
+  position: absolute;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;;
+}
+#playAgainButton:hover{
+  background-color: whitesmoke;
 }
