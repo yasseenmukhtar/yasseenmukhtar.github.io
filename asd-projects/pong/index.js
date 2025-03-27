@@ -214,5 +214,3 @@ function reset(){ //This function gets all of the original values of the paddles
     (document).off();
   }
 }
-
-
