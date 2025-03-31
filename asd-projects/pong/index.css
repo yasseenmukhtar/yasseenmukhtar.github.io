@@ -1,8 +1,8 @@
 
 body {
   
-  background-image: linear-gradient(blue, black);
-  background-size:cover;
+  background-image: radial-gradient(blue, black);
+  
 }
 
 #board {
@@ -35,7 +35,7 @@ body {
 }
 
 #ball{
-  background-image: linear-gradient(blue, gray);
+  background-image:(blue, gray);
   width: 20px;
   height: 20px;
   position: absolute;
@@ -85,6 +85,7 @@ body {
 }
 #playAgainButton:hover{
   background-color: whitesmoke;
+  padding: 13px;
 }
 .title{
   transform: translateX(47.5%);
