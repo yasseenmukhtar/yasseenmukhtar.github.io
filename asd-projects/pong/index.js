@@ -36,7 +36,8 @@ function runProgram(){
     }
     return obj;
   }
-  
+  var incBallSpeed = 1;
+  var mySound;
   var paddleLeft = createGameItem("#paddleLeft", 0, 0);
   var paddleRight = createGameItem("#paddleRight", 0, 0);
   var ball = createGameItem("#ball", (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1), (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1));
@@ -90,10 +91,14 @@ function runProgram(){
   }
 function ballCollisionTB(){ //This function checks if the ball has collided with either the top or bottom borders. If it has, it will change the speed to the opposite of what ever the speed was.
   if (ball.y < 0) {
+    mySound = new sound("audio/doink.wav");
+    mySound.play();
     ball.speedY = -ball.speedY;  
     
   }
   if (ball.y + BALL_HEIGHT > BOARD_HEIGHT) {
+    mySound = new sound("audio/doink.wav");
+    mySound.play();
     ball.speedY = -ball.speedY;  
     
   }
@@ -115,22 +120,26 @@ function ballCollisionLR(){ //This function detects if the ball has touched eith
 }
 function increaseBallSpeed(){
   if(ball.speedX < 0){
-    ball.speedX -= 1;
+    ball.speedX -= incBallSpeed;
   } else{
-    ball.speedX += 1;
+    ball.speedX += incBallSpeed;
   }
   if(ball.speedY < 0){
-    ball.speedY -= 1;
+    ball.speedY -= incBallSpeed;
   } else{
-    ball.speedY += 1;
+    ball.speedY += incBallSpeed;
   }
 }
 function collisionWithPaddles(){ //This function is to detect collision with the paddles. If it has, the speed will be reversed to create a deflection effect.
   if (doCollide(ball, paddleLeft)) {
+    mySound = new sound("audio/doink.wav");
+    mySound.play();
     ball.speedX = -ball.speedX;
     increaseBallSpeed();
   }
   if (doCollide(ball, paddleRight)) {
+    mySound = new sound("audio/doink.wav");
+    mySound.play();
     ball.speedX = -ball.speedX;
     increaseBallSpeed();
   
@@ -197,18 +206,32 @@ function reset(){ //This function gets all of the original values of the paddles
       paddleRight.speedY = 0;
     }
   }
-  
-  
-  
+  ///Other Helper Functions///
+  function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function() {
+      this.sound.play();
+    };
+    this.stop = function() {
+      this.sound.pause();
+    };
+  }
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// END GAME FUNCTION ////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  
   function detectGameEnd(){ //This function detects if the maximum number of points has been scored. If it has, the entire system will reset.
-    if(leftScore === 5 || rightScore === 5){
+    if(leftScore === 7 || rightScore === 7){
       reset();
       endGame();
     }
   }
+  
   function endGame() { //This function calls the playAgainButton function that displays a button that refreshes the page to play again.
     playAgainButton();
     (document).off();

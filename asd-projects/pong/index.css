@@ -35,7 +35,7 @@ body {
 }
 
 #ball{
-  background-image:(blue, gray);
+  background-image: linear-gradient(blue, gray);
   width: 20px;
   height: 20px;
   position: absolute;
@@ -91,4 +91,15 @@ body {
   transform: translateX(47.5%);
   color: white;
   font-size: 45px;
+}
+
+.highscore{
+  position: absolute;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  box-shadow: 10px 10px;
+  left: 50%;
+  
 }
